@@ -1,0 +1,196 @@
+## Global Variabel
+@BaseUrl = https://pam-2026-ifs23010-proyek1-be.ifs23010.fun:8080/
+
+### ---------------------------------------
+## Auth
+### ---------------------------------------
+
+### Melakukan pendaftaran
+# @name PostRegister
+POST {{BaseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Tester",
+  "username": "tester",
+  "password": "tester"
+}
+
+### Masuk ke layanan
+# @name PostLogin
+POST {{BaseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "tester",
+  "password": "tester"
+}
+
+> {%
+    client.global.set("authToken", response.body.data.authToken);
+    client.global.set("refreshToken", response.body.data.refreshToken);
+%}
+
+### Keluar dari layanan (skip run)
+# @name PostLogout
+POST {{BaseUrl}}/auth/logout
+Content-Type: application/json
+
+{
+  "authToken": "{{authToken}}"
+}
+
+### Refresh Token layanan
+# @name PostRefreshToken
+POST {{BaseUrl}}/auth/refresh-token
+Content-Type: application/json
+
+{
+  "authToken": "{{authToken}}",
+  "refreshToken": "{{refreshToken}}"
+}
+
+> {%
+    client.global.set("authToken", response.body.data.authToken);
+    client.global.set("refreshToken", response.body.data.refreshToken);
+%}
+
+### ---------------------------------------
+## Users
+### ---------------------------------------
+
+### Mengambil informasi akun
+# @name GetUserMe
+GET {{BaseUrl}}/users/me
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+> {%
+    client.global.set("userId", response.body.data.user.id);
+%}
+
+### Mengubah informasi akun
+# @name PutUserMe
+PUT {{BaseUrl}}/users/me
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "name": "Tester Update",
+  "username": "tester"
+}
+
+### Mengubah kata sandi akun
+# @name PutUserMePassword
+PUT {{BaseUrl}}/users/me/password
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "newPassword": "tester",
+  "password": "tester"
+}
+
+### Mengubah photo profile
+# @name PutUserMePhoto
+PUT {{BaseUrl}}/users/me/photo
+Authorization: Bearer {{authToken}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="example.png"
+Content-Type: image/png
+
+< ./uploads/examples/me.png
+--WebAppBoundary--
+
+### Mengambil foto pengguna berdasarkan id-nya
+@userId = 00ed9d33-61b0-48b7-a32a-6510af028731
+
+# @name GetMyPhoto
+GET {{BaseUrl}}/images/users/{{userId}}
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+### ---------------------------------------
+## Events (Kegiatan Himpunan)
+### ---------------------------------------
+
+### Mengambil semua data kegiatan user saat ini (dengan filter opsional)
+# @name GetTechnicians
+GET {{BaseUrl}}/technicians?search=&status=belum terlaksana&teknisi=Humas
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+### Mengambil statistik kegiatan di Home
+# @name GetTechnicianStats
+GET {{BaseUrl}}/technicians/stats
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+### Menambahkan kegiatan
+# @name PostTechnicians
+POST {{BaseUrl}}/technicians
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "title": "Rapat Akbar Himakom",
+  "description": "Membahas program kerja satu tahun ke depan",
+  "status": "belum terlaksana",
+  "tanggalDiterima": "2026-04-15",
+  "category": "Auditorium Kampus",
+  "estimasiBiaya": "500000",
+  "teknisi": "Humas"
+}
+
+> {%
+    client.global.set("technicianId", response.body.data.technicianId);
+%}
+
+### Mengambil kegiatan dengan id
+# @name GetTechnicianById
+GET {{BaseUrl}}/technicians/{technicianId}}
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+### Mengubah kegiatan
+# @name PutTechnician
+PUT {{BaseUrl}}/technicians/{{technicianId}}
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "title": "Rapat Akbar Himakom (Revisi)",
+  "description": "Membahas program kerja dan dies natalis",
+  "status": "sudah terlaksana",
+  "tanggalDiterima": "2026-04-15",
+  "category": "Auditorium Utama Kampus",
+  "estimasiBiaya": "750000",
+  "teknisi": "Humas"
+}
+
+### Mengubah cover kegiatan
+# @name PutechnicianCover
+PUT {{BaseUrl}}/s/{{technicianId}}/cover
+Authorization: Bearer {{authToken}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="example.png"
+Content-Type: image/png
+
+< ./uploads/examples/me.png
+--WebAppBoundary--
+
+### Mengambil cover kegiatan
+# @name GetTechnicianCover
+GET {{BaseUrl}}/images/technicians/{{technicianId}}
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+### Menghapus kegiatan
+# @name DeleteTechnician
+DELETE {{BaseUrl}}/technicians/{{technicianId}}
+Authorization: Bearer {{authToken}}
+Content-Type: application/json

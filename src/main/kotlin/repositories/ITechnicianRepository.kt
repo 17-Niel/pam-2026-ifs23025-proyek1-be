@@ -4,7 +4,7 @@ import org.delcom.entities.Technician
 
 interface ITechnicianRepository {
     // Parameter isComplete dan urgency diganti menjadi status dan divisi
-    suspend fun getAll(userId: String, search: String, page: Int, perPage: Int, status: String?, divisi: String?): List<Technician>
+    suspend fun getAll(userId: String, search: String, page: Int, perPage: Int, status: String?, teknisi: String?): List<Technician>
 
     // Fungsi baru untuk statistik Home
     suspend fun getHomeStats(userId: String): Map<String, Long>

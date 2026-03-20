@@ -34,10 +34,10 @@ class TechnicianService(
 
         // Filter baru menggunakan status dan divisi
         val status = call.request.queryParameters["status"]
-        val divisi = call.request.queryParameters["divisi"]
+        val teknisi = call.request.queryParameters["teknisi"]
 
         // Panggil fungsi getAll yang baru
-        val technicians = technicianRepo.getAll(user.id, search, page, perPage, status, divisi)
+        val technicians = technicianRepo.getAll(user.id, search, page, perPage, status, teknisi)
 
         val response = DataResponse(
             "success",
@@ -180,10 +180,10 @@ class TechnicianService(
         validator.required("title", "Judul kegiatan tidak boleh kosong")
         validator.required("description", "Deskripsi tidak boleh kosong")
         validator.required("status", "Status tidak boleh kosong")
-        validator.required("tanggalPelaksanaan", "Tanggal pelaksanaan tidak boleh kosong")
-        validator.required("tempatPelaksanaan", "Tempat pelaksanaan tidak boleh kosong")
+        validator.required("tanggalDiterima", "Tanggal pelaksanaan tidak boleh kosong")
+        validator.required("namaPemilik", "Nama Pemilik tidak boleh kosong")
         validator.required("estimasiBiaya", "Estimasi biaya tidak boleh kosong")
-        validator.required("divisi", "Divisi tidak boleh kosong")
+        validator.required("teknisi", "Teknisi tidak boleh kosong")
         validator.validate()
 
         // Tambahkan kegiatan
@@ -215,10 +215,10 @@ class TechnicianService(
         validator.required("title", "Judul kegiatan tidak boleh kosong")
         validator.required("description", "Deskripsi tidak boleh kosong")
         validator.required("status", "Status tidak boleh kosong")
-        validator.required("tanggalPelaksanaan", "Tanggal pelaksanaan tidak boleh kosong")
-        validator.required("tempatPelaksanaan", "Tempat pelaksanaan tidak boleh kosong")
+        validator.required("tanggalDiterima", "Tanggal pelaksanaan tidak boleh kosong")
+        validator.required("namaPemilik", "Nama Pemilik tidak boleh kosong")
         validator.required("estimasiBiaya", "Estimasi biaya tidak boleh kosong")
-        validator.required("divisi", "Divisi tidak boleh kosong")
+        validator.required("teknisi", "Teknisi tidak boleh kosong")
         validator.validate()
 
         val oldTechnician = technicianRepo.getById(technicianId)

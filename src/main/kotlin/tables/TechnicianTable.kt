@@ -3,7 +3,7 @@ package org.delcom.tables
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 
-object TechnicianTable : UUIDTable("events") {
+object TechnicianTable : UUIDTable("technicians") {
     val userId = uuid("user_id")
     val title = varchar("title", 100)
     val description = text("description")

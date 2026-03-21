@@ -118,7 +118,7 @@ Content-Type: application/json
 
 ### Mengambil semua data kegiatan user saat ini (dengan filter opsional)
 # @name GetTechnicians
-GET {{BaseUrl}}/technicians?search=&status=Kerusakan Ringan&teknisi=Humas
+GET {{BaseUrl}}/technicians?search=&status=Kerusakan Ringan&teknisi=Pendingin Ruangan
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
@@ -135,13 +135,13 @@ Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "title": "Rapat Akbar Himakom",
-  "description": "Membahas program kerja satu tahun ke depan",
+  "title": "Kerusakan laptop",
+  "description": " rusak berat dia",
   "status": "Kerusakan Ringan",
   "tanggalDiterima": "2026-04-15",
-  "category": "Auditorium Kampus",
+  "category": "kerusakan berat",
   "estimasiBiaya": "500000",
-  "teknisi": "Humas"
+  "teknisi": "Pendingin Ruangan"
 }
 
 > {%
@@ -161,13 +161,13 @@ Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "title": "Rapat Akbar Himakom (Revisi)",
-  "description": "Membahas program kerja dan dies natalis",
+  "title": "Kerusakan laptop",
+  "description": "mother boardnya pecah",
   "status": "Kerusakan Sedang",
   "tanggalDiterima": "2026-04-15",
-  "category": "Auditorium Utama Kampus",
+  "category": "kerusakan berat",
   "estimasiBiaya": "750000",
-  "teknisi": "Humas"
+  "teknisi": "Pendingin Ruangan"
 }
 
 ### Mengubah cover kegiatan

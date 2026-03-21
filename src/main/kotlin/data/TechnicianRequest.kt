@@ -12,7 +12,7 @@ data class TechnicianRequest(
     var cover: String? = null,
 
     // Field Baru (Pengganti isDone & urgency)
-    var status: String = "belum terlaksana", // Default value
+    var status: String = "Kerusakan Ringan", // Default value
     var tanggalDiterima: String = "",
     var namaPemilik: String = "",
     var estimasiBiaya: String = "",

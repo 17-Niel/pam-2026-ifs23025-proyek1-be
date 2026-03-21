@@ -15,7 +15,7 @@ data class Technician(
     var cover: String?,
 
     // Field baru pengganti isDone dan urgency
-    var status: String = "belum terlaksana",
+    var status: String = "Kerusakan Ringan",
     var tanggalDiterima: String,
     var namaPemilik: String,
     var estimasiBiaya: String,

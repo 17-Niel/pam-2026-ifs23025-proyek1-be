@@ -38,9 +38,9 @@ class TechnicianRepository : ITechnicianRepository {
 
     override suspend fun getHomeStats(userId: String): Map<String, Long> = suspendTransaction {
         val total = TechnicianDAO.find { TechnicianTable.userId eq UUID.fromString(userId) }.count()
-        val completed = TechnicianDAO.find { (TechnicianTable.userId eq UUID.fromString(userId)) and (TechnicianTable.status eq "sudah terlaksana") }.count()
-        val canceled = TechnicianDAO.find { (TechnicianTable.userId eq UUID.fromString(userId)) and (TechnicianTable.status eq "dibatalkan") }.count()
-        val active = TechnicianDAO.find { (TechnicianTable.userId eq UUID.fromString(userId)) and (TechnicianTable.status eq "belum terlaksana") }.count()
+        val completed = TechnicianDAO.find { (TechnicianTable.userId eq UUID.fromString(userId)) and (TechnicianTable.status eq "Kerusakan Sedang") }.count()
+        val canceled = TechnicianDAO.find { (TechnicianTable.userId eq UUID.fromString(userId)) and (TechnicianTable.status eq "Kerusakan Berat") }.count()
+        val active = TechnicianDAO.find { (TechnicianTable.userId eq UUID.fromString(userId)) and (TechnicianTable.status eq "Kerusakan Ringan") }.count()
 
         mapOf("total" to total, "complete" to completed, "active" to active, "canceled" to canceled)
     }

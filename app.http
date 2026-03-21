@@ -118,7 +118,7 @@ Content-Type: application/json
 
 ### Mengambil semua data kegiatan user saat ini (dengan filter opsional)
 # @name GetTechnicians
-GET {{BaseUrl}}/technicians?search=&status=belum terlaksana&teknisi=Humas
+GET {{BaseUrl}}/technicians?search=&status=Kerusakan Ringan&teknisi=Humas
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
@@ -137,7 +137,7 @@ Content-Type: application/json
 {
   "title": "Rapat Akbar Himakom",
   "description": "Membahas program kerja satu tahun ke depan",
-  "status": "belum terlaksana",
+  "status": "Kerusakan Ringan",
   "tanggalDiterima": "2026-04-15",
   "category": "Auditorium Kampus",
   "estimasiBiaya": "500000",
@@ -163,7 +163,7 @@ Content-Type: application/json
 {
   "title": "Rapat Akbar Himakom (Revisi)",
   "description": "Membahas program kerja dan dies natalis",
-  "status": "sudah terlaksana",
+  "status": "Kerusakan Sedang",
   "tanggalDiterima": "2026-04-15",
   "category": "Auditorium Utama Kampus",
   "estimasiBiaya": "750000",

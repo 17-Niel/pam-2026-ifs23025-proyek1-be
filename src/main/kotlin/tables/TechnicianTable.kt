@@ -10,7 +10,7 @@ object TechnicianTable : UUIDTable("technicians") {
     val cover = text("cover").nullable()
 
     // Properti Baru (Pengganti isDone & urgency)
-    val status = varchar("status", 50).default("belum terlaksana")
+    val status = varchar("status", 50).default("Kerusakan Ringan")
     val tanggalDiterima = varchar("tanggal_diterima", 100)
     val namaPemilik = varchar("nama_pemilik", 255)
     val estimasiBiaya = varchar("estimasi_biaya", 100)

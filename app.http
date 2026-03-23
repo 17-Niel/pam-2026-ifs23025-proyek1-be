@@ -113,22 +113,22 @@ Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 ### ---------------------------------------
-## Events (Kegiatan Himpunan)
+## Events (Service Himpunan)
 ### ---------------------------------------
 
-### Mengambil semua data kegiatan user saat ini (dengan filter opsional)
+### Mengambil semua data Service user saat ini (dengan filter opsional)
 # @name GetTechnicians
 GET {{BaseUrl}}/technicians?search=&status=Kerusakan Ringan&teknisi=Pendingin Ruangan
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
-### Mengambil statistik kegiatan di Home
+### Mengambil statistik Service di Home
 # @name GetTechnicianStats
 GET {{BaseUrl}}/technicians/stats
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
-### Menambahkan kegiatan
+### Menambahkan Service
 # @name PostTechnicians
 POST {{BaseUrl}}/technicians
 Authorization: Bearer {{authToken}}
@@ -148,13 +148,13 @@ Content-Type: application/json
     client.global.set("technicianId", response.body.data.technicianId);
 %}
 
-### Mengambil kegiatan dengan id
+### Mengambil Service dengan id
 # @name GetTechnicianById
 GET {{BaseUrl}}/technicians/{technicianId}}
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
-### Mengubah kegiatan
+### Mengubah Service
 # @name PutTechnician
 PUT {{BaseUrl}}/technicians/{{technicianId}}
 Authorization: Bearer {{authToken}}
@@ -170,7 +170,7 @@ Content-Type: application/json
   "teknisi": "Pendingin Ruangan"
 }
 
-### Mengubah cover kegiatan
+### Mengubah cover Service
 # @name PutechnicianCover
 PUT {{BaseUrl}}/s/{{technicianId}}/cover
 Authorization: Bearer {{authToken}}
@@ -183,13 +183,13 @@ Content-Type: image/png
 < ./uploads/examples/me.png
 --WebAppBoundary--
 
-### Mengambil cover kegiatan
+### Mengambil cover Service
 # @name GetTechnicianCover
 GET {{BaseUrl}}/images/technicians/{{technicianId}}
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
-### Menghapus kegiatan
+### Menghapus Service
 # @name DeleteTechnician
 DELETE {{BaseUrl}}/technicians/{{technicianId}}
 Authorization: Bearer {{authToken}}

@@ -41,7 +41,7 @@ class TechnicianService(
 
         val response = DataResponse(
             "success",
-            "Berhasil mengambil daftar kegiatan",
+            "Berhasil mengambil daftar Service",
             mapOf(Pair("technicians", technicians))
         )
         call.respond(response)
@@ -53,36 +53,36 @@ class TechnicianService(
 
         val response = DataResponse(
             "success",
-            "Berhasil mengambil statistik kegiatan",
+            "Berhasil mengambil statistik Service",
             mapOf(Pair("stats", stats))
         )
         call.respond(response)
     }
 
-    // Mengambil data kegiatan berdasarkan id
+    // Mengambil data Service berdasarkan id
     suspend fun getById(call: ApplicationCall) {
         val technicianId = call.parameters["id"]
-            ?: throw AppException(400, "Data kegiatan tidak valid!")
+            ?: throw AppException(400, "Data Service tidak valid!")
 
         val user = ServiceHelper.getAuthUser(call, userRepo)
 
         val technician = technicianRepo.getById(technicianId)
         if (technician == null || technician.userId != user.id) {
-            throw AppException(404, "Data kegiatan tidak tersedia!")
+            throw AppException(404, "Data Service tidak tersedia!")
         }
 
         val response = DataResponse(
             "success",
-            "Berhasil mengambil data kegiatan",
+            "Berhasil mengambil data Service",
             mapOf(Pair("technician", technician))
         )
         call.respond(response)
     }
 
-    // Ubah cover kegiatan
+    // Ubah cover Service
     suspend fun putCover(call: ApplicationCall) {
         val technicianId = call.parameters["id"]
-            ?: throw AppException(400, "Data kegiatan tidak valid!")
+            ?: throw AppException(400, "Data Service tidak valid!")
 
         val user = ServiceHelper.getAuthUser(call, userRepo)
 
@@ -119,18 +119,18 @@ class TechnicianService(
         }
 
         if (request.cover == null) {
-            throw AppException(404, "Cover kegiatan tidak tersedia!")
+            throw AppException(404, "Cover Service tidak tersedia!")
         }
 
         val newFile = File(request.cover!!)
         // Cek apakah gambar berhasil diunggah
         if (!newFile.exists()) {
-            throw AppException(404, "Cover kegiatan gagal diunggah!")
+            throw AppException(404, "Cover Service gagal diunggah!")
         }
 
         val oldTechnician = technicianRepo.getById(technicianId)
         if (oldTechnician == null || oldTechnician.userId != user.id) {
-            throw AppException(404, "Data kegiatan tidak tersedia!")
+            throw AppException(404, "Data Service tidak tersedia!")
         }
 
         // Pertahankan data lama
@@ -148,7 +148,7 @@ class TechnicianService(
             request.toEntity()
         )
         if (!isUpdated) {
-            throw AppException(400, "Gagal memperbarui cover kegiatan!")
+            throw AppException(400, "Gagal memperbarui cover Service!")
         }
 
         // Hapus cover lama
@@ -161,13 +161,13 @@ class TechnicianService(
 
         val response = DataResponse(
             "success",
-            "Berhasil mengubah cover kegiatan",
+            "Berhasil mengubah cover Service",
             null
         )
         call.respond(response)
     }
 
-    // Menambahkan data kegiatan
+    // Menambahkan data Service
     suspend fun post(call: ApplicationCall) {
         val user = ServiceHelper.getAuthUser(call, userRepo)
 
@@ -177,7 +177,7 @@ class TechnicianService(
 
         // Validasi request
         val validator = ValidatorHelper(request.toMap())
-        validator.required("title", "Judul kegiatan tidak boleh kosong")
+        validator.required("title", "Judul Service tidak boleh kosong")
         validator.required("description", "Deskripsi tidak boleh kosong")
         validator.required("status", "Status tidak boleh kosong")
         validator.required("tanggalDiterima", "Tanggal pelaksanaan tidak boleh kosong")
@@ -186,23 +186,23 @@ class TechnicianService(
         validator.required("teknisi", "Teknisi tidak boleh kosong")
         validator.validate()
 
-        // Tambahkan kegiatan
+        // Tambahkan Service
         val technicianId = technicianRepo.create(
             request.toEntity()
         )
 
         val response = DataResponse(
             "success",
-            "Berhasil menambahkan data kegiatan",
+            "Berhasil menambahkan data Service",
             mapOf(Pair("technicianId", technicianId))
         )
         call.respond(response)
     }
 
-    // Mengubah data kegiatan
+    // Mengubah data Service
     suspend fun put(call: ApplicationCall) {
         val technicianId = call.parameters["id"]
-            ?: throw AppException(400, "Data kegiatan tidak valid!")
+            ?: throw AppException(400, "Data Service tidak valid!")
 
         val user = ServiceHelper.getAuthUser(call, userRepo)
 
@@ -212,7 +212,7 @@ class TechnicianService(
 
         // Validasi request
         val validator = ValidatorHelper(request.toMap())
-        validator.required("title", "Judul kegiatan tidak boleh kosong")
+        validator.required("title", "Judul Service tidak boleh kosong")
         validator.required("description", "Deskripsi tidak boleh kosong")
         validator.required("status", "Status tidak boleh kosong")
         validator.required("tanggalDiterima", "Tanggal pelaksanaan tidak boleh kosong")
@@ -223,7 +223,7 @@ class TechnicianService(
 
         val oldTechnician = technicianRepo.getById(technicianId)
         if (oldTechnician == null || oldTechnician.userId != user.id) {
-            throw AppException(404, "Data kegiatan tidak tersedia!")
+            throw AppException(404, "Data Service tidak tersedia!")
         }
         request.cover = oldTechnician.cover // Pertahankan cover lama
 
@@ -233,38 +233,38 @@ class TechnicianService(
             request.toEntity()
         )
         if (!isUpdated) {
-            throw AppException(400, "Gagal memperbarui data kegiatan!")
+            throw AppException(400, "Gagal memperbarui data Service!")
         }
 
         val response = DataResponse(
             "success",
-            "Berhasil mengubah data kegiatan",
+            "Berhasil mengubah data Service",
             null
         )
         call.respond(response)
     }
 
-    // Menghapus data kegiatan
+    // Menghapus data Service
     suspend fun delete(call: ApplicationCall) {
         val technicianId = call.parameters["id"]
-            ?: throw AppException(400, "Data kegiatan tidak valid!")
+            ?: throw AppException(400, "Data Service tidak valid!")
 
         val user = ServiceHelper.getAuthUser(call, userRepo)
 
         val oldTechnician = technicianRepo.getById(technicianId)
         if (oldTechnician == null || oldTechnician.userId != user.id) {
-            throw AppException(404, "Data kegiatan tidak tersedia!")
+            throw AppException(404, "Data Service tidak tersedia!")
         }
 
         val isDeleted = technicianRepo.delete(user.id, technicianId)
         if (!isDeleted) {
-            throw AppException(400, "Gagal menghapus data kegiatan!")
+            throw AppException(400, "Gagal menghapus data Service!")
         }
 
         if (oldTechnician.cover != null) {
             val oldFile = File(oldTechnician.cover!!)
 
-            // Hapus data gambar jika data kegiatan sudah dihapus
+            // Hapus data gambar jika data Service sudah dihapus
             if (oldFile.exists()) {
                 oldFile.delete()
             }
@@ -272,27 +272,27 @@ class TechnicianService(
 
         val response = DataResponse(
             "success",
-            "Berhasil menghapus data kegiatan",
+            "Berhasil menghapus data Service",
             null
         )
         call.respond(response)
     }
 
-    // Mengambil gambar kegiatan
+    // Mengambil gambar Service
     suspend fun getCover(call: ApplicationCall) {
         val technicianId = call.parameters["id"]
-            ?: throw AppException(400, "Data kegiatan tidak valid!")
+            ?: throw AppException(400, "Data Service tidak valid!")
 
         val technician = technicianRepo.getById(technicianId)
             ?: return call.respond(HttpStatusCode.NotFound)
 
         if (technician.cover == null) {
-            throw AppException(404, "Kegiatan belum memiliki cover")
+            throw AppException(404, "Service belum memiliki cover")
         }
 
         val file = File(technician.cover!!)
         if (!file.exists()) {
-            throw AppException(404, "Cover kegiatan tidak tersedia")
+            throw AppException(404, "Cover Service tidak tersedia")
         }
 
         call.respondFile(file)
